@@ -10,10 +10,10 @@ on:
         - QA
         - DEV
         - UAT
-      boolean:
+      enable feature flag:
         type: boolean
         description: Enable Feature Flag
-      choice:
+      testing type:
         type: choice
         description: Testing Type
         options:
@@ -33,7 +33,7 @@ jobs:
       - name: greet
         run: | 
           echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
-          echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
-          echo "choice is ${{ github.event.inputs.choice }}" / ${{ inputs.choice }}
+          echo "boolean is ${{ github.event.inputs.enable feature flag }}" / ${{ inputs.boolean }} 
+          echo "choice is ${{ github.event.inputs.testing type }}" / ${{ inputs.choice }}
           echo "string is ${{ github.event.inputs.textbox }}" / ${{ inputs.textbox }}
           
