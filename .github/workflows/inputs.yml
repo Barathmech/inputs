@@ -12,14 +12,17 @@ on:
         - UAT
       boolean:
         type: boolean
-        description: True or False
+        description: Enable Feature Flag
       choice:
         type: choice
-        description: Make a choice
+        description: Testing Type
         options:
-        - foo
-        - bar
-        - baz
+        - Smoke
+        - Regression
+        - Sanity
+      textbox:
+        type: string
+        description: Enter User Name
 jobs:
   build:
     runs-on: ubuntu-latest
