@@ -6,6 +6,10 @@ on:
       environment:
         type: choice
         description: Select the environment
+        options:
+        - QA
+        - DEV
+        - UAT
       boolean:
         type: boolean
         description: True or False
