@@ -36,4 +36,10 @@ jobs:
           echo "boolean is ${{ github.event.inputs.enable_feature_flag }}" / ${{ inputs.boolean }} 
           echo "choice is ${{ github.event.inputs.testing_type }}" / ${{ inputs.choice }}
           echo "string is ${{ github.event.inputs.textbox }}" / ${{ inputs.textbox }}
+
+      - name: Upload reports to github
+        uses: actions/upload-artifact@v4
+        with:
+            name: html-file
+            path: .github/workflows/index.html
           
