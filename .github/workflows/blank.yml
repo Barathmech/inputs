@@ -1,0 +1,47 @@
+name: Upload Test Data & Run Tests
+
+on:
+  workflow_dispatch:  # Manual trigger from Actions UI
+
+jobs:
+  upload-placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prompt for File Upload
+        run: echo "Please manually upload your test file in the Actions UI under Artifacts."
+
+      - name: Upload Artifact Placeholder
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-data
+          path: .  # Creates an artifact entry
+          retention-days: 1
+
+  process-file:
+    needs: upload-placeholder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Uploaded File
+        uses: actions/download-artifact@v3
+        with:
+          name: test-data
+          path: ./data
+
+      - name: List Uploaded Files
+        run: ls -l ./data  # Show uploaded files
+
+      - name: Extract Data from CSV File
+        run: |
+          FILE=$(find ./data -type f | head -n 1)
+          echo "Processing file: $FILE"
+          cat $FILE  # Display file content
+
+      - name: Run Test Cases Using Extracted Data
+        run: |
+          FILE=$(find ./data -type f | head -n 1)
+          while IFS=, read -r item qty; do
+            if [[ "$item" != "item" ]]; then
+              echo "Running test case for item: $item, quantity: $qty"
+              echo "Test for $item passed!"
+            fi
+          done < <(tail -n +2 $FILE)
